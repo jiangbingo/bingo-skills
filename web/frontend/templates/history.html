@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}下载历史 - Bingo Downloader{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-clock-history me-2"></i>下载历史</h2>
+        <button class="btn btn-outline-danger" onclick="clearHistory()">
+            <i class="bi bi-trash me-1"></i>清空历史
+        </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">每页显示</label>
+                    <select class="form-select" id="limit-select" onchange="loadHistory()">
+                        <option value="10">10 条</option>
+                        <option value="20" selected>20 条</option>
+                        <option value="50">50 条</option>
+                        <option value="100">100 条</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">平台筛选</label>
+                    <select class="form-select" id="platform-select" onchange="loadHistory()">
+                        <option value="">全部平台</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Bilibili">Bilibili</option>
+                        <option value="Twitter/X">Twitter/X</option>
+                        <option value="TikTok">TikTok</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Table -->
+    <div class="card">
+        <div class="card-body">
+            <div id="history-content" hx-get="/api/history/" hx-trigger="load">
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">加载中...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function loadHistory() {
+    const limit = document.getElementById('limit-select').value;
+    const platform = document.getElementById('platform-select').value;
+
+    let url = `/api/history/?limit=${limit}`;
+    if (platform) {
+        url += `&platform=${platform}`;
+    }
+
+    htmx.ajax('GET', url, {target: '#history-content'});
+}
+
+function clearHistory() {
+    if (confirm('确定要清空所有历史记录吗？')) {
+        htmx.ajax('DELETE', '/api/history/clear', {
+            afterRequest: function() {
+                loadHistory();
+                showToast('历史记录已清空', 'success');
+            }
+        });
+    }
+}
+
+function deleteRecord(id) {
+    if (confirm('确定要删除这条记录吗？')) {
+        htmx.ajax('DELETE', `/api/history/${id}`, {
+            afterRequest: function() {
+                loadHistory();
+                showToast('记录已删除', 'success');
+            }
+        });
+    }
+}
+
+// Load history on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadHistory();
+});
+</script>
+{% endblock %}

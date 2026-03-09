@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bingo Downloader{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- HTMX -->
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@1.9.10"></script>
+
+    <!-- Custom CSS -->
+    <link href="/static/css/main.css" rel="stylesheet">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-download me-2"></i>Bingo Downloader
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"
+                           hx-get="/"
+                           hx-push-url="true"
+                           hx-target="#main-content">
+                            <i class="bi bi-house me-1"></i>首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history"
+                           hx-get="/history"
+                           hx-push-url="true"
+                           hx-target="#main-content">
+                            <i class="bi bi-clock-history me-1"></i>历史
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/stats"
+                           hx-get="/stats"
+                           hx-push-url="true"
+                           hx-target="#main-content">
+                            <i class="bi bi-graph-up me-1"></i>统计
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/static/js/main.js"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

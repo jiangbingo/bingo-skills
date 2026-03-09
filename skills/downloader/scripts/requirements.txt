@@ -1,0 +1,8 @@
+# Bingo Downloader - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core download engine
+yt-dlp>=2024.1.1
+
+# Optional - Enhanced terminal output
+rich>=13.7.0

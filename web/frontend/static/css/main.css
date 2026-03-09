@@ -1,0 +1,241 @@
+/*
+ * Bingo Downloader Web - Main Stylesheet
+ */
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --dark-bg: #212529;
+    --darker-bg: #1a1d20;
+}
+
+body {
+    background-color: var(--dark-bg);
+    min-height: 100vh;
+}
+
+/* Navbar Enhancements */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Card Enhancements */
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--darker-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Form Enhancements */
+.form-control, .form-select {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-text {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Button Enhancements */
+.btn {
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Table Enhancements */
+.table {
+    color: #fff;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent;
+    color: #fff;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.table-hover > tbody > tr:hover > * {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Badge Enhancements */
+.badge {
+    font-weight: 500;
+}
+
+/* Loading Spinner */
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+
+.htmx-request .htmx-indicator {
+    opacity: 1;
+}
+
+.htmx-request.htmx-indicator {
+    opacity: 1;
+}
+
+/* Progress Bar */
+.progress {
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Toast Enhancements */
+.toast {
+    background-color: var(--darker-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toast-header {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.toast-body {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Stats Cards */
+.stat-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.stat-card.success {
+    border-left-color: var(--success-color);
+}
+
+.stat-card.danger {
+    border-left-color: var(--danger-color);
+}
+
+.stat-card.warning {
+    border-left-color: var(--warning-color);
+}
+
+.stat-card.info {
+    border-left-color: var(--info-color);
+}
+
+/* Platform Icons */
+.platform-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Download Progress */
+.download-progress {
+    position: relative;
+}
+
+.download-progress .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: linear-gradient(45deg, var(--primary-color), var(--info-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.border-gradient {
+    border: 2px solid;
+    border-image: linear-gradient(45deg, var(--primary-color), var(--info-color)) 1;
+}

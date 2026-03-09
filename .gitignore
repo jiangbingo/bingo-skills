@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Test
+.coverage
+htmlcov/
+.tox/
+
+# MCP
+mcp/node_modules/
+mcp/dist/
+
+# Web
+web/node_modules/
+web/.venv/

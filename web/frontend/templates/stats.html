@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}统计信息 - Bingo Downloader{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4"><i class="bi bi-graph-up me-2"></i>下载统计</h2>
+
+    <!-- Overview Cards -->
+    <div class="row g-4 mb-4" id="stats-overview" hx-get="/api/stats/" hx-trigger="load">
+        <div class="col-12">
+            <div class="text-center py-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2">加载统计中...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Platform Breakdown -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="bi bi-pie-chart me-2"></i>按平台分布</h5>
+        </div>
+        <div class="card-body">
+            <div id="platform-stats" hx-get="/api/stats/by-platform" hx-trigger="load">
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Load stats on page load
+document.addEventListener('DOMContentLoaded', function() {
+    htmx.trigger('#stats-overview', 'load');
+    htmx.trigger('#platform-stats', 'load');
+});
+</script>
+{% endblock %}
