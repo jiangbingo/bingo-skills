@@ -46,6 +46,13 @@ make install-all
 |-------|------|
 | `bingo-downloader` | 1000+ 网站视频下载、音频提取、字幕下载 |
 
+### 演示工具 (2个)
+
+| Skill | 描述 |
+|-------|------|
+| `flowchart-slides` | 卡通手绘风格HTML幻灯片生成器，适用于流程演示、教学培训、营销方案 |
+| `sketch-notes` | 工程师笔记本风格幻灯片，网格纸背景+手绘涂鸦+咖啡渍，适用于技术文档、开发者教程 |
+
 ### 技术指南 (1篇)
 
 | Guide | 描述 |
@@ -58,6 +65,8 @@ make install-all
 
 > "分析这个 GitHub 仓库的代码质量"
 > "下载这个视频 https://youtube.com/..."
+> "生成一个4步流程的卡通风格幻灯片"
+> "创建一个工程师笔记本风格的开发流程图"
 > "如何安装 OpenClaw"
 
 ## MCP Server
@@ -83,6 +92,8 @@ bingo-skills/
 ├── skills/                    # Skills 目录
 │   ├── devops/               # DevOps 工具集 (14个)
 │   ├── downloader/           # 视频下载器
+│   ├── flowchart-slides/     # 卡通风格幻灯片生成器
+│   ├── sketch-notes/         # 工程师笔记本风格幻灯片
 │   └── guides/               # 技术指南
 ├── mcp/                       # MCP Server
 ├── web/                       # Web UI

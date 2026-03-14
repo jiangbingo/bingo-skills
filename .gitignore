@@ -43,3 +43,4 @@ mcp/dist/
 # Web
 web/node_modules/
 web/.venv/
+.vercel

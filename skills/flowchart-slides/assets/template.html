@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Primary - Soft Pastels */
+      --blue-light: #E3F2FD;
+      --pink-light: #FCE4EC;
+      --yellow-light: #FFFDE7;
+      --green-light: #E8F5E9;
+      --purple-light: #F3E5F5;
+      --orange-light: #FFF3E0;
+
+      /* Accents */
+      --yellow-bright: #FFEB3B;
+      --orange-bright: #FF9800;
+      --pink-bright: #E91E63;
+      --blue-bright: #2196F3;
+
+      /* Base */
+      --white: #FFFFFF;
+      --gray-grid: #F5F5F5;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --border-color: #E0E0E0;
+
+      /* Card colors rotation */
+      --card-1: var(--blue-light);
+      --card-2: var(--pink-light);
+      --card-3: var(--yellow-light);
+      --card-4: var(--green-light);
+      --card-5: var(--purple-light);
+      --card-6: var(--orange-light);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--white);
+      color: var(--text-primary);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle, var(--border-color) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .header::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue-bright), var(--pink-bright));
+      margin: 20px auto 0;
+      border-radius: 2px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .header .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+
+    /* Steps Container */
+    .steps-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    /* Step Card */
+    .step-card {
+      width: 260px;
+      background: var(--white);
+      border-radius: 20px;
+      padding: 30px 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 2px solid var(--border-color);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .step-card:nth-child(6n+1) { --card-color: var(--card-1); }
+    .step-card:nth-child(6n+2) { --card-color: var(--card-2); }
+    .step-card:nth-child(6n+3) { --card-color: var(--card-3); }
+    .step-card:nth-child(6n+4) { --card-color: var(--card-4); }
+    .step-card:nth-child(6n+5) { --card-color: var(--card-5); }
+    .step-card:nth-child(6n+6) { --card-color: var(--card-6); }
+
+    .step-number {
+      position: absolute;
+      top: -12px;
+      left: 24px;
+      background: var(--card-color);
+      color: var(--text-primary);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 2px solid var(--white);
+    }
+
+    .step-icon {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto 16px;
+      background: var(--card-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+    }
+
+    .step-icon::before {
+      content: '';
+      position: absolute;
+      width: 110%;
+      height: 110%;
+      border: 2px dashed var(--card-color);
+      border-radius: 50%;
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .step-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* Highlight */
+    .highlight {
+      background: linear-gradient(120deg, var(--yellow-bright) 0%, var(--yellow-bright) 100%);
+      background-repeat: no-repeat;
+      background-size: 100% 40%;
+      background-position: 0 90%;
+      padding: 0 4px;
+    }
+
+    /* Arrow Connector */
+    .arrow-connector {
+      display: flex;
+      align-items: center;
+      color: var(--text-secondary);
+      font-size: 24px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 20px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Decorations */
+    .star {
+      position: absolute;
+      font-size: 16px;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+
+      .step-card {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .steps-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: var(--white) !important;
+        background-image: none !important;
+      }
+
+      .step-card {
+        break-inside: avoid;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>{{TITLE}}</h1>
+      <p class="subtitle">{{SUBTITLE}}</p>
+    </header>
+
+    <div class="steps-container">
+      <!-- Step 1 -->
+      <div class="step-card">
+        <span class="step-number">步骤 1</span>
+        <div class="step-icon">{{ICON1}}</div>
+        <h3 class="step-title">{{STEP1_TITLE}}</h3>
+        <p class="step-desc">{{STEP1_DESC}}</p>
+        <span class="star" style="top: 10px; right: 10px;">✨</span>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <span class="step-number">步骤 2</span>
+        <div class="step-icon">{{ICON2}}</div>
+        <h3 class="step-title">{{STEP2_TITLE}}</h3>
+        <p class="step-desc">{{STEP2_DESC}}</p>
+        <span class="star" style="top: 10px; right: 10px;">⭐</span>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <span class="step-number">步骤 3</span>
+        <div class="step-icon">{{ICON3}}</div>
+        <h3 class="step-title">{{STEP3_TITLE}}</h3>
+        <p class="step-desc">{{STEP3_DESC}}</p>
+        <span class="star" style="top: 10px; right: 10px;">🌟</span>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-card">
+        <span class="step-number">步骤 4</span>
+        <div class="step-icon">{{ICON4}}</div>
+        <h3 class="step-title">{{STEP4_TITLE}}</h3>
+        <p class="step-desc">{{STEP4_DESC}}</p>
+        <span class="star" style="top: 10px; right: 10px;">💫</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Powered by <span class="highlight">Flowchart Slides</span></p>
+    </footer>
+  </div>
+</body>
+</html>

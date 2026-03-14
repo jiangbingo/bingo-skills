@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Base - Graph Paper */
+      --paper-bg: #F5F5F0;
+      --grid-line: #E0E0E0;
+      --grid-major: #D0D0D0;
+
+      /* Stains & Textures */
+      --coffee-stain: rgba(139, 90, 43, 0.12);
+      --paper-aged: rgba(245, 245, 240, 0.95);
+      --shadow: rgba(0, 0, 0, 0.08);
+
+      /* Sketch Colors */
+      --pencil-dark: #2C2C2C;
+      --pencil-light: #666666;
+      --pencil-faint: #999999;
+      --red-pencil: #C62828;
+      --blue-pencil: #1565C0;
+      --green-pencil: #2E7D32;
+
+      /* Accent */
+      --highlight-yellow: rgba(255, 245, 157, 0.6);
+      --highlight-pink: rgba(248, 187, 217, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Caveat', cursive;
+      min-height: 100vh;
+      padding: 40px 20px;
+      /* Graph paper background */
+      background-color: var(--paper-bg);
+      background-image:
+        /* Coffee stains - random positions */
+        radial-gradient(ellipse 120px 100px at 15% 20%, var(--coffee-stain) 0%, transparent 70%),
+        radial-gradient(ellipse 80px 60px at 85% 75%, var(--coffee-stain) 0%, transparent 60%),
+        radial-gradient(ellipse 60px 80px at 70% 10%, var(--coffee-stain) 0%, transparent 50%),
+        radial-gradient(ellipse 100px 70px at 25% 85%, var(--coffee-stain) 0%, transparent 65%),
+        /* Minor grid lines */
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+        /* Major grid lines */
+        linear-gradient(var(--grid-major) 2px, transparent 2px),
+        linear-gradient(90deg, var(--grid-major) 2px, transparent 2px);
+      background-size:
+        100% 100%, 100% 100%, 100% 100%, 100% 100%,
+        20px 20px, 20px 20px,
+        100px 100px, 100px 100px;
+      color: var(--pencil-dark);
+      position: relative;
+    }
+
+    /* Paper texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Scattered doodles */
+    .doodle {
+      position: absolute;
+      opacity: 0.4;
+      font-size: 28px;
+      z-index: 0;
+      filter: grayscale(30%);
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      padding: 20px;
+    }
+
+    .header-box {
+      display: inline-block;
+      padding: 15px 40px 20px;
+      position: relative;
+      /* Hand-drawn border effect */
+      border: 3px solid var(--pencil-dark);
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      background: rgba(255, 255, 255, 0.7);
+      transform: rotate(-0.5deg);
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--pencil-dark);
+      transform: rotate(0.3deg);
+    }
+
+    .header .subtitle {
+      font-size: 1.4rem;
+      color: var(--pencil-light);
+      margin-top: 8px;
+      font-family: 'Kalam', cursive;
+    }
+
+    /* Underline decoration */
+    .header-box::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 30px;
+      right: 30px;
+      height: 3px;
+      background: var(--red-pencil);
+      border-radius: 2px;
+      transform: rotate(-0.5deg);
+    }
+
+    /* Steps Container */
+    .steps-container {
+      position: relative;
+    }
+
+    /* Step Card */
+    .step-card {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 25px 30px;
+      margin-bottom: 15px;
+      position: relative;
+      /* Hand-drawn box effect */
+      border: 2.5px solid var(--pencil-dark);
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      box-shadow: 3px 3px 0 var(--pencil-faint);
+      transform: rotate(-0.3deg);
+    }
+
+    .step-card:nth-child(even) {
+      border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+      transform: rotate(0.4deg);
+    }
+
+    .step-card:nth-child(3n) {
+      border-radius: 225px 15px 255px 15px / 15px 225px 15px 255px;
+      transform: rotate(-0.2deg);
+    }
+
+    .step-number {
+      position: absolute;
+      top: -15px;
+      left: 25px;
+      background: var(--highlight-yellow);
+      padding: 4px 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 2px solid var(--pencil-dark);
+      border-radius: 20px;
+      transform: rotate(-2deg);
+    }
+
+    .step-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 10px;
+    }
+
+    .step-doodle {
+      font-size: 42px;
+      flex-shrink: 0;
+      transform: rotate(-5deg);
+    }
+
+    .step-text {
+      flex: 1;
+    }
+
+    .step-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--pencil-dark);
+    }
+
+    .step-title .highlight {
+      background: var(--highlight-yellow);
+      padding: 0 4px;
+      border-radius: 2px;
+    }
+
+    .step-desc {
+      font-size: 1.2rem;
+      color: var(--pencil-light);
+      line-height: 1.5;
+      font-family: 'Kalam', cursive;
+    }
+
+    /* Arrow connectors */
+    .arrow-connector {
+      text-align: center;
+      padding: 5px 0;
+      color: var(--pencil-dark);
+      font-size: 1.5rem;
+      transform: rotate(3deg);
+    }
+
+    /* Annotation style */
+    .annotation {
+      position: absolute;
+      font-size: 1rem;
+      color: var(--red-pencil);
+      transform: rotate(-8deg);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 25px;
+      position: relative;
+    }
+
+    .footer-box {
+      display: inline-block;
+      padding: 15px 30px;
+      border: 2px dashed var(--pencil-light);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.6);
+      transform: rotate(1deg);
+    }
+
+    .footer p {
+      font-size: 1.3rem;
+      color: var(--pencil-light);
+      font-family: 'Kalam', cursive;
+    }
+
+    .footer .signature {
+      font-size: 1.1rem;
+      color: var(--blue-pencil);
+      margin-top: 10px;
+      transform: rotate(-3deg);
+    }
+
+    /* Checklist style */
+    .checklist {
+      margin: 15px 0;
+      padding-left: 5px;
+    }
+
+    .checklist li {
+      list-style: none;
+      font-size: 1.15rem;
+      margin: 8px 0;
+      position: relative;
+      padding-left: 30px;
+      font-family: 'Kalam', cursive;
+    }
+
+    .checklist li::before {
+      content: '☐';
+      position: absolute;
+      left: 0;
+      font-size: 1.2rem;
+      color: var(--pencil-dark);
+    }
+
+    .checklist li.checked::before {
+      content: '☑';
+      color: var(--green-pencil);
+    }
+
+    /* Tape decoration */
+    .tape {
+      position: absolute;
+      width: 80px;
+      height: 25px;
+      background: rgba(255, 235, 180, 0.7);
+      border: 1px solid rgba(200, 180, 130, 0.5);
+      z-index: 10;
+    }
+
+    .tape-top-left {
+      top: -10px;
+      left: 20px;
+      transform: rotate(-15deg);
+    }
+
+    .tape-top-right {
+      top: -8px;
+      right: 25px;
+      transform: rotate(12deg);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .step-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .step-doodle {
+        transform: rotate(0deg);
+      }
+
+      .doodle {
+        display: none;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: var(--paper-bg) !important;
+      }
+
+      .step-card {
+        break-inside: avoid;
+      }
+
+      .doodle {
+        opacity: 0.2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Scattered doodles -->
+  <div class="doodle" style="top: 5%; left: 5%;">☕</div>
+  <div class="doodle" style="top: 15%; right: 8%;">⚙️</div>
+  <div class="doodle" style="top: 40%; left: 3%;">✏️</div>
+  <div class="doodle" style="top: 60%; right: 5%;">💻</div>
+  <div class="doodle" style="top: 80%; left: 8%;">🔧</div>
+  <div class="doodle" style="bottom: 10%; right: 10%;">📊</div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-box">
+        <div class="tape tape-top-left"></div>
+        <div class="tape tape-top-right"></div>
+        <h1>{{TITLE}}</h1>
+        <p class="subtitle">{{SUBTITLE}}</p>
+      </div>
+    </header>
+
+    <!-- Steps -->
+    <div class="steps-container">
+      <!-- Step 1 -->
+      <div class="step-card">
+        <span class="step-number">步骤 1</span>
+        <div class="step-content">
+          <div class="step-doodle">{{ICON1}}</div>
+          <div class="step-text">
+            <h3 class="step-title">{{STEP1_TITLE}}</h3>
+            <p class="step-desc">{{STEP1_DESC}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-connector">↓</div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <span class="step-number">步骤 2</span>
+        <div class="step-content">
+          <div class="step-doodle">{{ICON2}}</div>
+          <div class="step-text">
+            <h3 class="step-title">{{STEP2_TITLE}}</h3>
+            <p class="step-desc">{{STEP2_DESC}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-connector">↓</div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <span class="step-number">步骤 3</span>
+        <div class="step-content">
+          <div class="step-doodle">{{ICON3}}</div>
+          <div class="step-text">
+            <h3 class="step-title">{{STEP3_TITLE}}</h3>
+            <p class="step-desc">{{STEP3_DESC}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-connector">↓</div>
+
+      <!-- Step 4 -->
+      <div class="step-card">
+        <span class="step-number">步骤 4</span>
+        <div class="step-content">
+          <div class="step-doodle">{{ICON4}}</div>
+          <div class="step-text">
+            <h3 class="step-title">{{STEP4_TITLE}}</h3>
+            <p class="step-desc">{{STEP4_DESC}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-box">
+        <p>{{SUMMARY}}</p>
+        <p class="signature">— Sketch Notes 📝</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
